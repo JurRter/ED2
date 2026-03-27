@@ -60,7 +60,8 @@ bool BT_insert(BinTree* arvore, int x){
             return 0;
         }
     }
-    return 1;
+    puts("shapooooo");
+    return 0;
 }
 
 void BT_pre(BinTree*);
