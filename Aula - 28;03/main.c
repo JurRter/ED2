@@ -1,6 +1,16 @@
 #include "BinTree.h"
 #include <stdio.h>
 
+struct _no {
+    struct _no* lef;
+    struct _no* rit;
+    int index;
+};
+
+struct _tree {
+    TNo* inicio;
+};
+
 int main(void) {
     BinTree* arvore = BT_create();
 
@@ -23,9 +33,30 @@ int main(void) {
 
     puts("\nTeste de validacao BST:");
     if (BT_is_bst(arvore)) {
-        puts("Resultado: eh arvore de busca (BST).\n");
+        puts("BST.\n");
     } else {
-        puts("Resultado: NAO eh arvore de busca (BST).\n");
+        puts("n é BST\n");
+    }
+
+    puts("Teste de validacao NAO-BST com Strtobintree:");
+    
+    char forma_nao_bst[] = "(10(5()())(8()()))";
+    int pos = 0;
+    
+    BinTree* arvore_nao_bst = BT_create();
+    if (arvore_nao_bst == NULL) {
+        puts("Erro ao criar arvore nao-BST.");
+        return 1;
+    }
+    arvore_nao_bst->inicio = Strtobintree(forma_nao_bst, &pos);
+    if (arvore_nao_bst->inicio == NULL) {
+        puts("Erro ao fazer parse da arvore nao-BST.");
+        return 1;
+    }
+    if (BT_is_bst(arvore_nao_bst)) {
+        puts("Falhou: deveria NAO ser BST.\n");
+    } else {
+        puts("Correto: NAO e BST.\n");
     }
 
     puts("Fim dos testes.");

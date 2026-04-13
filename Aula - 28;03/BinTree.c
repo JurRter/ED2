@@ -14,6 +14,16 @@ typedef struct _tree{
     TNo* inicio;
 } Bin;
 
+TNo* NO_createnfill(int x){
+    TNo* no = malloc(sizeof(TNo));
+    if(no != NULL){
+        no->rit = NULL;
+        no->lef = NULL;
+        no->index = x;
+    }
+    return no;
+}
+
 /// @brief (25(5()(6))(14(3)(1)))
 /// @param str 
 /// @param x
@@ -22,7 +32,7 @@ TNo* Strtobintree(char *str, int* x){
     if (str == NULL || x == NULL) {
         return NULL;
     }
-
+    
     if (str[*x] != '(') {
         return NULL;
     }
@@ -55,17 +65,6 @@ TNo* Strtobintree(char *str, int* x){
 
     if (str[*x] == ')') {
         (*x)++;
-    }
-
-    return no;
-}
-
-TNo* NO_createnfill(int x){
-    TNo* no = malloc(sizeof(TNo));
-    if(no != NULL){
-        no->rit = NULL;
-        no->lef = NULL;
-        no->index = x;
     }
     return no;
 }
