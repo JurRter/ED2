@@ -1,0 +1,173 @@
+#include "BinTree.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <limits.h>
+
+
+typedef struct _no{
+    struct _no* lef;
+    struct _no* rit;
+    int index;
+} TNo;
+
+typedef struct _tree{
+    TNo* inicio;
+} Bin;
+
+TNo* NO_createnfill(int x){
+    TNo* no = malloc(sizeof(TNo));
+    if(no != NULL){
+        no->rit = NULL;
+        no->lef = NULL;
+        no->index = x;
+    }
+    return no;
+}
+
+/// @brief (25(5()(6))(14(3)(1)))
+/// @param str 
+/// @param x
+/// @return 
+TNo* Strtobintree(char *str, int* x){
+    if (str == NULL || x == NULL) {
+        return NULL;
+    }
+
+    if (str[*x] != '(') {
+        return NULL;
+    }
+    (*x)++;
+
+    if (str[*x] == ')') {
+        (*x)++;
+        return NULL;
+    }
+
+    int sign = 1;
+    if (str[*x] == '-') {
+        sign = -1;
+        (*x)++;
+    }
+
+    int value = 0;
+    while (str[*x] >= '0' && str[*x] <= '9') {
+        value = value * 10 + (str[*x] - '0');
+        (*x)++;
+    }
+
+    TNo* no = NO_createnfill(sign * value);
+    if (no == NULL) {
+        return NULL;
+    }
+
+    no->lef = Strtobintree(str, x);
+    no->rit = Strtobintree(str, x);
+
+    if (str[*x] == ')') {
+        (*x)++;
+    }
+
+    return no;
+}
+
+
+BinTree* BT_create(){
+    BinTree* arvore = malloc(sizeof(BinTree));
+    if (arvore != NULL) {
+        arvore->inicio = NULL;
+    }
+    return arvore;
+}
+
+bool BT_insert(BinTree* arvore, int x){
+    TNo* NO = NO_createnfill(x);
+    if(NO == NULL) return 0;
+    if (arvore->inicio == NULL) {
+        arvore->inicio = NO;
+    return 1;
+}
+    TNo* aux = arvore->inicio;
+    while(NO->index > aux->index || NO->index < aux->index){
+        if(NO->index > aux->index){
+            if(aux->rit != NULL){
+                aux = aux->rit;
+            } else {
+                aux->rit = NO;
+                return 1;
+            }
+        } else if(NO->index < aux->index){
+            if(aux->lef != NULL){
+                aux = aux->lef;
+            } else {
+                aux->lef = NO;
+                return 1;
+            }
+        } else {
+            puts("cHapo");
+            return 0;
+        }
+    }
+    puts("shapooooo");
+    return 0;
+}
+
+void BT_pre(BinTree*);
+
+void BT_in(BinTree*);
+
+void BT_pos(BinTree*);
+
+void BT_nivel(BinTree*);
+
+int BT_altura(BinTree* arvore){
+    if(arvore == NULL) return 0;
+    if(!BT_is_bst(arvore)) return 0;
+    TNo* aux = arvore->inicio; 
+    if (aux == NULL) return 0;
+    return no_altura(aux) + 1;
+} 
+
+int no_altura(TNo* no){
+    if(no == NULL) return -1;
+    int h_lef = no_altura(no->lef);
+    int h_rit = no_altura(no->rit);
+    return (h_lef > h_rit ? h_lef : h_rit) + 1;
+}
+
+bool NO_is_bst(TNo* no, int min, int max) {
+    if (no == NULL) {
+        return true;
+    }
+
+    if (no->index <= min || no->index >= max) {
+        return false;
+    }
+
+    return NO_is_bst(no->lef, min, no->index) && NO_is_bst(no->rit, no->index, max);
+}
+
+bool BT_is_bst(BinTree* arvore) {
+    if (arvore == NULL) {
+        return false;
+    }
+
+    return NO_is_bst(arvore->inicio, INT_MIN, INT_MAX);
+}
+
+TNo* BT_max(BinTree* arvore){
+    TNo* max = arvore->inicio;
+    while (max->rit != NULL){
+        max = max->rit;
+    };
+    return max;
+}
+
+TNo* BT_min(BinTree* arvore){
+    TNo* min = arvore->inicio;
+    while (min->lef != NULL){
+        min = min->lef;
+    };
+    return min;
+};
+
+TNo* BT_sucesso(TNo*);
