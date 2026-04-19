@@ -15,7 +15,7 @@ typedef struct _tree{
 } Bin;
 
 TNo* NO_createnfill(int x){
-    TNo* no = malloc(sizeof(BinTree));
+    TNo* no = malloc(sizeof(TNo));
     if(no != NULL){
         no->rit = NULL;
         no->lef = NULL;

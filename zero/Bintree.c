@@ -1,10 +1,6 @@
 #include <stdlib.h>
 #include "BinTree.h"
 
-typedef struct arvre
-{
-    tno* root;
-} tree;
 
 typedef struct no
 {
@@ -14,9 +10,14 @@ typedef struct no
     int index;
 } tno;
 
+typedef struct arvre
+{
+    tno* root;
+} tree;
+
 bool no_createnfill(tno** x, int y){
     *x = malloc(sizeof(tno));
-    if(*x == NULL) return;
+    if(*x == NULL) return 0;
     (*x)->lef = NULL;
     (*x)->rit = NULL;
     (*x)->index = y;
@@ -26,7 +27,7 @@ bool no_createnfill(tno** x, int y){
 
 tree* tree_create(){
     tree* novo = malloc(sizeof(tree));
-    if (novo == NULL) return;
+    if (novo == NULL) return NULL;
     novo->root = NULL;
     return novo;
 }
