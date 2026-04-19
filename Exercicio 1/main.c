@@ -1,35 +1,29 @@
 #include "BinTree.h"
 #include <stdio.h>
 
+int ancestral(int p, int q, BinTree* root);
+
 int main(void) {
     BinTree* arvore = BT_create();
-
     if (arvore == NULL) {
         puts("Erro ao criar arvore.");
         return 1;
     }
 
-    int valores[] = {10, 5, 17, 3, 7, 12, 20, 7};
+    int valores[] = {20, 10, 30, 5, 15, 25, 35};
     int n = (int)(sizeof(valores) / sizeof(valores[0]));
 
-    puts("Teste de insercao:");
     for (int i = 0; i < n; i++) {
-        if (BT_insert(arvore, valores[i])) {
-            printf("Inserido: %d\n", valores[i]);
-        } else {
-            printf("Nao inserido (duplicado/erro): %d\n", valores[i]);
+        if (!BT_insert(arvore, valores[i])) {
+            printf("Falha ao inserir %d\n", valores[i]);
+            return 1;
         }
     }
 
-    puts("\nTeste de validacao BST:");
-    if (BT_is_bst(arvore)) {
-        puts("Resultado: eh arvore de busca (BST).\n");
-    } else {
-        puts("Resultado: NAO eh arvore de busca (BST).\n");
-    }
-    
-    printf("arvore tem %i niveis \n", BT_altura(arvore));
-    puts("Fim dos testes.");
+    int p = 10;
+    int q = 30;
+    int resultado = ancestral(p, q, arvore);
 
+    printf("MCA(%d, %d) = %d\n", p, q, resultado);
     return 0;
 }

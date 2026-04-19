@@ -66,8 +66,6 @@ TNo* Strtobintree(char *str, int* x){
     if (str[*x] == ')') {
         (*x)++;
     }
-
-    return no;
 }
 
 
@@ -171,3 +169,26 @@ TNo* BT_min(BinTree* arvore){
 };
 
 TNo* BT_sucesso(TNo*);
+
+int MCA(int min, int max, TNo* aux){
+    if(aux == NULL){
+        return 0;
+    }
+    if(min == aux->lef->index && aux->lef != NULL){
+        return 1;
+    } else if(max == aux->rit->index && aux->rit != NULL){
+        return 1;
+    }
+    if(MCA(min,aux->index, aux->lef) + MCA(aux->index, max, aux->rit) == 2){
+        return aux->index;
+    } else {
+        puts("num deu");
+        return -1;
+    }
+}
+
+int ancestral(int p, int q, BinTree* root){
+    TNo* aux = root->inicio;
+    int x = MCA(p,q, aux);
+    return x;
+}
