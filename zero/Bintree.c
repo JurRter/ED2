@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "BinTree.h"
 
@@ -32,6 +33,21 @@ tree* tree_create(){
     return novo;
 }
 
+void printinorder(tno* x){
+    if(x != NULL){
+        printinorder(x->lef);
+        printf("%d ", x->index);
+        printinorder(x->rit);
+    }
+}
+
+void printno(tno* x) {
+    printf("%p ENDEREÇO, %i INDEX", x, x->index);
+}
+void printtreeinorder(tree* x){
+    printinorder(x->root);
+}
+
 void case1_giroesquerda(tno** x, bool* h){
     tno* ptu = (*x)->rit;
     if(ptu->balanc == -1){
@@ -42,8 +58,30 @@ void case1_giroesquerda(tno** x, bool* h){
     }
 }
 
-void case2_girodireita(tno** x, int h){
-//ue
+tno* treesearch(tno* x, int y) {
+    if (x == NULL || y == x->index) return x;
+    if (x->index > y) {
+        return treesearch(x->lef, y);
+    } else {
+        return treesearch(x->rit, y);
+    }
 }
 
-void novo();
+void printspecificno(tno* x, int y) {
+    if (x->index == y) {
+        printno(x);
+        return;
+    } else if (y > x->index) {
+        printspecificno(x->lef, y);
+    } else {
+        printspecificno(x->rit, y);
+    }
+}
+
+void case2_girodireita(tno **x, int h) {
+    //ue
+}
+
+
+void novo() {
+}
