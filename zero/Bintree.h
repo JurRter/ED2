@@ -170,4 +170,17 @@ void printtreelevelorder(Arvore* x);
  */
 Arvore* createnfillstringtotree(char *buffer, int *atual);
 
+/**
+ * Calculates the height of a binary tree rooted at the given node.
+ *
+ * @param x A pointer to the root node of the binary tree. If the pointer
+ *          is NULL, the height of the tree is considered zero. Otherwise,
+ *          the function recursively computes the height based on the
+ *          structure of the left and right subtrees.
+ * @return An integer representing the height of the binary tree. The height
+ *         is the number of nodes along the longest path from the given node
+ *         to a leaf.
+ */
+int alturano(TNO* x);
+
 #endif

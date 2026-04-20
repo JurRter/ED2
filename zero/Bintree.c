@@ -63,6 +63,30 @@ void printpreorder(TNO* x) {
     }
 }
 
+void imprimePorNivel(TNO *raiz) {
+    if (raiz == NULL) return;
+
+    TNO *fila[1000];   // simples (ajuste o tamanho se precisar)
+    int ini = 0, fim = 0;
+    int primeiro = 1;
+
+    fila[fim++] = raiz;
+
+    while (ini < fim) {
+        TNO *atual = fila[ini++];
+
+        if (!primeiro) printf(", ");
+        printf("%c", atual->index);
+        primeiro = 0;
+
+        if (atual->lef) fila[fim++] = atual->lef;
+        if (atual->rit) fila[fim++] = atual->rit;
+    }
+
+    printf(".\n");
+}
+
+
 void printposorder(TNO* x) {
     if (x!= NULL) {
         printposorder(x->lef);
@@ -71,13 +95,20 @@ void printposorder(TNO* x) {
     }
 }
 
-void printdiferente(TNO* x) {
-    if (x == NULL) return;
-    printno(x);
-    printno(x->lef);
-    printno(x->rit);
-    printdiferente(x->lef);
-    printdiferente(x->rit);
+int alturano(TNO* x) {
+    int qty = 1;
+    if (x->lef != NULL) {
+        qty += alturano(x->lef);
+    }
+    int qty2 = 1;
+    if (x->rit != NULL) {
+        qty2 += alturano(x->rit);
+    }
+    if (qty > qty2) {
+        return qty;
+    } else {
+        return  qty2;
+    }
 }
 
 void printtreeinorder(Arvore* x){
