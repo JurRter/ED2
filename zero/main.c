@@ -1,49 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Bintree.h"
-#include "../Aula - 28_03/BinTree.h"
 
 int main(void) {
     Arvore* arvore = tree_create();
     TNO* raiz = NULL;
     char buffer[4096];
     int atual = 0;
-    fgets(buffer, 4096, stdin);
-    Arvore* testeS = tree_create();
-    testeS->root = Strtobintree(buffer, &atual);
-    
 
-    if (arvore == NULL) {
-        printf("Erro ao criar a arvore.\n");
-        return 1;
-    }
-
-    if (!no_createnfill(&raiz, 10)) {
-        printf("Erro ao criar o no raiz.\n");
+    if (fgets(buffer, 4096, stdin) == NULL) {
+        printf("Erro ao ler entrada.\n");
         free(arvore);
         return 1;
     }
 
-    printf("Print em ordem da arvore vazia: ");
+    Arvore* testeS = createnfillstringtotree(buffer, &atual);
+
+    printf("Percurso em ordem (arvore vazia):\n");
     printtreeinorder(arvore);
     printf("\n");
 
-    if (treesearch(raiz, 10) != NULL) {
-        printf("No encontrado: ");
-        printspecificno(raiz, 10);
-        printf("\n");
+    /* Mantem os testes que ja existiam */
+    printf("Percurso em ordem (testeS):\n");
+    printtreeinorder(testeS);
+    printf("\n");
+
+    printf("Percurso pos-ordem (testeS):\n");
+    printtreeposorder(testeS);
+    printf("\n");
+
+    printf("Percurso pre-ordem (testeS):\n");
+    printtreepreorder(testeS);
+    printf("\n");
+
+    /* Testa chartoint */
+    printf("chartoint('7') = %d\n", chartoint('7'));
+
+    /* Testa no_createnfill */
+    if (!no_createnfill(&raiz, 10)) {
+        printf("Falha ao criar nos de teste.\n");
+        free(arvore);
+        free(testeS);
+        return 1;
     }
 
-    if (treesearch(raiz, 99) == NULL) {
-        printf("Valor 99 nao encontrado.\n");
+    /* Testa busca/impressao */
+    printspecificno(testeS, 20);
+    printf("\n");
+    printspecificno(testeS, 12);
+
+    /* Testa assinaturas dos giros */
+    {
+        bool h = true;
+        case1_giroesquerda(&raiz, &h);
+        case2_girodireita(&raiz, 0);
     }
 
+    printf("Percurso diferente (testeS):\n");
+    printtreediferente(testeS);
+    printf("\n");
 
-
-
-
+    printf("Percurso em largura/nível (testeS):\n");
+    printtreelevelorder(testeS);
 
     free(raiz);
     free(arvore);
+    free(testeS);
     return 0;
 }
