@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include "Bintree.h"
 
-struct no {
+typedef struct no
+{
     struct no* rit;
     struct no* lef;
     struct no* p;
     int balanc;
     int index;
-};
+} tno;
 
-struct arvre {
-    TNO* root;
-};
+typedef struct arvre
+{
+    tno* root;
+} tree;
 
 bool no_createnfill(TNO** x, int y){
     *x = malloc(sizeof(TNO));
@@ -33,15 +35,15 @@ void printno(TNO* x) {
     printf("%p ENDERECO, %i INDEX \n", x, x->index);
 }
 
-Arvore* tree_create(){
-    Arvore* novo = malloc(sizeof(Arvore));
+tree* tree_create(){
+    tree* novo = malloc(sizeof(tree));
     if (novo == NULL) return NULL;
     novo->root = NULL;
     return novo;
 }
 
-Arvore* createnfillstringtotree(char *buffer, int *atual){
-    Arvore* novo = malloc(sizeof(Arvore));
+tree* createnfillstringtotree(char *buffer, int *atual){
+    tree* novo = malloc(sizeof(tree));
     if (novo == NULL) return NULL;
     novo->root = stringtotree(buffer, atual);
     return novo;
@@ -73,7 +75,7 @@ void imprimePorNivel(TNO *raiz) {
     fila[fim++] = raiz;
 
     while (ini < fim) {
-        TNO *atual = fila[ini++];
+        tno *atual = fila[ini++];
 
         if (!primeiro) printf(", ");
         printf("%c", atual->index);
@@ -87,7 +89,7 @@ void imprimePorNivel(TNO *raiz) {
 }
 
 
-void printposorder(TNO* x) {
+void printposorder(tno* x) {
     if (x!= NULL) {
         printposorder(x->lef);
         printposorder(x->rit);
@@ -95,7 +97,7 @@ void printposorder(TNO* x) {
     }
 }
 
-int alturano(TNO* x) {
+int alturano(tno* x) {
     int qty = 1;
     if (x->lef != NULL) {
         qty += alturano(x->lef);
@@ -111,26 +113,26 @@ int alturano(TNO* x) {
     }
 }
 
-void printtreeinorder(Arvore* x){
+void printtreeinorder(tree* x){
     if (x == NULL) return;
     printinorder(x->root);
 }
-void printtreeposorder(Arvore* x){
+void printtreeposorder(tree* x){
     if (x == NULL) return;
     printposorder(x->root);
 }
-void printtreepreorder(Arvore* x){
+void printtreepreorder(tree* x){
     if (x == NULL) return;
     printpreorder(x->root);
 }
-void printtreediferente(Arvore* x) {
+void printtreediferente(tree* x) {
     if (x == NULL) return;
     printdiferente(x->root);
 }
 
-void case1_giroesquerda(TNO** x, bool* h){
+void case1_giroesquerda(tno** x, bool* h){
     if (x == NULL || *x == NULL || (*x)->rit == NULL) return;
-    TNO* ptu = (*x)->rit;
+    tno* ptu = (*x)->rit;
     if(ptu->balanc == -1){
         (*x)->lef = ptu->rit;
         ptu->rit = (*x);
@@ -143,8 +145,8 @@ int chartoint(char c) {
     return c-'0';
 }
 
-TNO* stringtotree(char *x, int *atual){
-    TNO* root = NULL;
+tno* stringtotree(char *x, int *atual){
+    tno* root = NULL;
     if (x[(*atual)++] == '(' && x[*atual] != ')') {
         int index = 0;
         while (x[*atual]!=')' && x[*atual]!= '(') {
@@ -161,7 +163,7 @@ TNO* stringtotree(char *x, int *atual){
 }
 
 
-TNO* treesearch(TNO* x, int y) {
+tno* treesearch(tno* x, int y) {
     if (x == NULL || y == x->index) return x;
     if (x->index > y) {
         return treesearch(x->lef, y);
@@ -170,12 +172,12 @@ TNO* treesearch(TNO* x, int y) {
     }
 }
 
-void printspecificno(Arvore* x, int y) {
+void printspecificno(tree* x, int y) {
     if (x == NULL) {
         printf("Arvore nula.\n");
         return;
     }
-    TNO* aux = treesearch(x->root, y);
+    tno* aux = treesearch(x->root, y);
     if (aux == NULL) {
         printf("Valor %d nao encontrado.\n", y);
         return;
@@ -183,5 +185,5 @@ void printspecificno(Arvore* x, int y) {
     printno(aux);
 }
 
-void case2_girodireita(TNO **x, int h) {
+void case2_girodireita(tno **x, int h) {
 }

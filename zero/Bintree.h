@@ -3,9 +3,8 @@
 
 #include <stdbool.h>
 
-typedef struct no TNO;
-
 typedef struct arvre Arvore;
+typedef struct no TNO;
 
 /**
  * Allocates memory for a new TNO structure, initializes its attributes,
