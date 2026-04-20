@@ -1,10 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Bintree.h"
+#include "../Aula - 28_03/BinTree.h"
 
 int main(void) {
     Arvore* arvore = tree_create();
     TNO* raiz = NULL;
+    char buffer[4096];
+    int atual = 0;
+    fgets(buffer, 4096, stdin);
+    Arvore* testeS = tree_create();
+    testeS->root = Strtobintree(buffer, &atual);
+    
 
     if (arvore == NULL) {
         printf("Erro ao criar a arvore.\n");
@@ -30,6 +37,11 @@ int main(void) {
     if (treesearch(raiz, 99) == NULL) {
         printf("Valor 99 nao encontrado.\n");
     }
+
+
+
+
+
 
     free(raiz);
     free(arvore);

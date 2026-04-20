@@ -13,6 +13,11 @@ void case2_girodireita(TNO** x, int h);
 TNO* treesearch(TNO* x, int y);
 void printspecificno(TNO* x, int y);
 void printtreeinorder(Arvore* x);
-
+void printinorder(TNO* x);
+void printpreorder(TNO* x);
+void printposorder(TNO* x);
+int chartoint(char c);
+TNO* stringtotree(char *x, int *atual);
+void printdiferente(TNO* x);
 
 #endif
