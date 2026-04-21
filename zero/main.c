@@ -5,16 +5,23 @@
 int main(void) {
     Arvore* arvore = tree_create();
     TNO* raiz = NULL;
-    char buffer[4096];
-    int atual = 0;
+    char input[] = "(7(5(3(1)(4))(6))(10(8()(9))(12(11)(14()(16)))))";
+    int atual_arvore = 0;
+    int atual_altura = 0;
+    Arvore* testeS = createnfillstringtotree(input, &atual_arvore);
+    TNO* raiz_altura = stringtotree(input, &atual_altura);
 
-    if (fgets(buffer, 4096, stdin) == NULL) {
-        printf("Erro ao ler entrada.\n");
-        free(arvore);
-        return 1;
-    }
-
-    Arvore* testeS = createnfillstringtotree(buffer, &atual);
+    printf("Entrada usada (maior): %s\n\n", input);
+    printf("Desenho da arvore:\n");
+    printf("            7\n");
+    printf("         /     \\\n");
+    printf("        5       10\n");
+    printf("      /   \\    /  \\\n");
+    printf("     3     6  8    12\n");
+    printf("    / \\        \\   / \\\n");
+    printf("   1   4        9 11 14\n");
+    printf("                      \\ \n");
+    printf("                       16\n");
 
     printf("Percurso em ordem (arvore vazia):\n");
     printtreeinorder(arvore);
@@ -57,13 +64,27 @@ int main(void) {
     }
 
     printf("Percurso diferente (testeS):\n");
-    printtreediferente(testeS);
+    arvorepornivel(testeS);
     printf("\n");
 
-    printf("Percurso em largura/nível (testeS):\n");
-    printtreelevelorder(testeS);
+    printf("Percurso em largura/nivel (testeS):\n");
+    arvorepornivel(testeS);
+    printf("\n");
+
+    printf("Altura da arvore (alturano): %d\n", alturano(raiz_altura));
+
+    printf("Teste LCA (1, 6):\n");
+    printlca(testeS, 1, 6);
+    printf("Teste LCA (9, 16):\n");
+    printlca(testeS, 9, 16);
+
+    printf("Teste soma (1, 6):\n");
+    printf("Soma: %i \n", somadeintervaloarvore(testeS, 1, 6));
+    printf("Teste soma (9, 16):\n");
+    printf("Soma: %i \n", somadeintervaloarvore(testeS, 9, 16));
 
     free(raiz);
+    free(raiz_altura);
     free(arvore);
     free(testeS);
     return 0;

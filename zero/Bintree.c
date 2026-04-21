@@ -16,7 +16,7 @@ typedef struct arvre
     tno* root;
 } tree;
 
-bool no_createnfill(TNO** x, int y){
+bool no_createnfill(tno** x, int y){
     *x = malloc(sizeof(TNO));
     if(*x == NULL) return 0;
     (*x)->lef = NULL;
@@ -27,7 +27,7 @@ bool no_createnfill(TNO** x, int y){
     return 1;
 }
 
-void printno(TNO* x) {
+void printno(tno* x) {
     if (x == NULL) {
         printf("(NULL)\n");
         return;
@@ -57,7 +57,7 @@ void printinorder(TNO* x){
     }
 }
 
-void printpreorder(TNO* x) {
+void printpreorder(tno* x) {
     if (x != NULL) {
         printno(x);
         printpreorder(x->lef);
@@ -65,29 +65,24 @@ void printpreorder(TNO* x) {
     }
 }
 
-void imprimePorNivel(TNO *raiz) {
+void imprimePorNivel(tno *raiz) {
     if (raiz == NULL) return;
-
-    TNO *fila[1000];   // simples (ajuste o tamanho se precisar)
+    TNO *fila[1000];
     int ini = 0, fim = 0;
     int primeiro = 1;
-
     fila[fim++] = raiz;
-
     while (ini < fim) {
         tno *atual = fila[ini++];
 
         if (!primeiro) printf(", ");
-        printf("%c", atual->index);
+        printf("%d", atual->index);
         primeiro = 0;
 
         if (atual->lef) fila[fim++] = atual->lef;
         if (atual->rit) fila[fim++] = atual->rit;
     }
-
     printf(".\n");
 }
-
 
 void printposorder(tno* x) {
     if (x!= NULL) {
@@ -95,6 +90,10 @@ void printposorder(tno* x) {
         printposorder(x->rit);
         printno(x);
     }
+}
+
+void arvorepornivel(tree* x) {
+    imprimePorNivel(x->root);
 }
 
 int alturano(tno* x) {
@@ -124,10 +123,6 @@ void printtreeposorder(tree* x){
 void printtreepreorder(tree* x){
     if (x == NULL) return;
     printpreorder(x->root);
-}
-void printtreediferente(tree* x) {
-    if (x == NULL) return;
-    printdiferente(x->root);
 }
 
 void case1_giroesquerda(tno** x, bool* h){
@@ -187,3 +182,40 @@ void printspecificno(tree* x, int y) {
 
 void case2_girodireita(tno **x, int h) {
 }
+
+tno* LCA(tno* x, int min, int max) {
+    if (x == NULL) {
+        return NULL;
+    }
+    if (x->index == min || x->index == max) {
+        return x;
+    }
+    tno* esq = LCA(x->lef, min, max);
+    tno* dir = LCA(x->rit, min, max);
+    if (esq && dir) return x;
+    return esq ? esq : dir;
+}
+
+void printlca(tree* x, int p, int q) {
+    printno(LCA(x->root, p, q));
+}
+
+int somadeintervalo(tno* x, int p, int q) { // p = 3 q = 10
+    if (x == NULL) {
+        return 0;
+    }
+    if (x->index < p) {
+        return  somadeintervalo(x->rit, p,q);
+    }
+    if (x->index > q) {
+        return  somadeintervalo(x->lef, p, q);
+    }
+    return x->index
+    + somadeintervalo(x->lef, p , q)
+    + somadeintervalo(x->rit, p, q);
+}
+
+int somadeintervaloarvore(tree* x, int p, int q) {
+    return somadeintervalo(x->root, p, q);
+}
+

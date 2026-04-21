@@ -133,27 +133,9 @@ int chartoint(char c);
 TNO* stringtotree(char *x, int *atual);
 
 /**
- * Performs a specialized traversal and printing of the binary tree.
  *
- * This method traverses a binary tree with a custom approach and outputs
- * information about the nodes. The traversal begins at the root node of
- * the provided tree structure.
- *
- * @param x A pointer to an Arvore structure representing the root of
- *          the binary tree to be printed. If this parameter is NULL,
- *          the function returns immediately without performing any operation.
  */
-void printtreediferente(Arvore* x);
-
-/**
- * Prints the nodes of a binary tree in level-order (breadth-first) traversal.
- * Nodes are printed in the order they appear in each level, from top to bottom.
- *
- * @param x A pointer to an Arvore structure representing the binary tree
- *          to be traversed. If the tree is NULL, the function performs
- *          no operation.
- */
-void printtreelevelorder(Arvore* x);
+void arvorepornivel(Arvore* x);
 
 /**
  * Creates a new tree structure, constructs its root node from a string,
@@ -181,5 +163,12 @@ Arvore* createnfillstringtotree(char *buffer, int *atual);
  *         to a leaf.
  */
 int alturano(TNO* x);
+
+/**
+ *
+ */
+void printlca(Arvore* x, int p, int q);
+
+int somadeintervaloarvore(Arvore* x, int p, int q);
 
 #endif
