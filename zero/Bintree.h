@@ -133,7 +133,11 @@ int chartoint(char c);
 TNO* stringtotree(char *x, int *atual);
 
 /**
+ * Traverses the tree in level-order (breadth-first) and prints the values
+ * of its nodes.
  *
+ * @param x A pointer to the tree structure whose nodes will be traversed
+ *          and printed. The traversal begins from the root node of the tree.
  */
 void arvorepornivel(Arvore* x);
 
@@ -165,10 +169,25 @@ Arvore* createnfillstringtotree(char *buffer, int *atual);
 int alturano(TNO* x);
 
 /**
+ * Finds and prints the Lowest Common Ancestor (LCA) of two nodes in a binary tree.
  *
+ * @param x A pointer to a tree structure representing the binary tree.
+ *          The function operates on the root of this tree.
+ * @param p An integer representing the value of the first node for which
+ *          the LCA is to be determined.
+ * @param q An integer representing the value of the second node for which
+ *          the LCA is to be determined.
  */
 void printlca(Arvore* x, int p, int q);
 
-int somadeintervaloarvore(Arvore* x, int p, int q);
+/**
+ * Calculates the sum of values within a specified interval [p, q] in a binary tree.
+ *
+ * @param x A pointer to the binary tree structure containing the tree nodes.
+ * @param p An integer representing the lower bound of the interval.
+ * @param q An integer representing the upper bound of the interval.
+ * @return The sum of the values within the interval [p, q] present in the tree.
+ */
+int somadeintervaloarvoe(Arvore* x, int p, int q);
 
 #endif

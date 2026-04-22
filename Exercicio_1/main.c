@@ -1,29 +1,104 @@
-#include "BinTree.h"
 #include <stdio.h>
-
-int ancestral(int p, int q, BinTree* root);
+#include <stdlib.h>
+#include "Bintree.h"
 
 int main(void) {
-    BinTree* arvore = BT_create();
-    if (arvore == NULL) {
-        puts("Erro ao criar arvore.");
+    Arvore* arvore = tree_create();
+    TNO* raiz = NULL;
+    char input[] = "(7(5(3(1)(4))(6))(10(8()(9))(12(11)(14()(16)))))";
+    int atual_arvore = 0;
+    int atual_altura = 0;
+    Arvore* testeS = createnfillstringtotree(input, &atual_arvore);
+    TNO* raiz_altura = stringtotree(input, &atual_altura);
+
+    printf("Entrada usada (maior): %s\n\n", input);
+    printf("Desenho da arvore:\n");
+    printf("            7\n");
+    printf("         /     \\\n");
+    printf("        5       10\n");
+    printf("      /   \\    /  \\\n");
+    printf("     3     6  8    12\n");
+    printf("    / \\        \\   / \\\n");
+    printf("   1   4        9 11 14\n");
+    printf("                      \\ \n");
+    printf("                       16\n");
+
+    printf("Percurso em ordem (arvore vazia):\n");
+    printtreeinorder(arvore);
+    printf("\n");
+
+    /* Mantem os testes que ja existiam */
+    printf("Percurso em ordem (testeS):\n");
+    printtreeinorder(testeS);
+    printf("\n");
+
+    printf("Percurso pos-ordem (testeS):\n");
+    printtreeposorder(testeS);
+    printf("\n");
+
+    printf("Percurso pre-ordem (testeS):\n");
+    printtreepreorder(testeS);
+    printf("\n");
+
+    /* Testa chartoint */
+    printf("chartoint('7') = %d\n", chartoint('7'));
+
+    /* Testa no_createnfill */
+    if (!no_createnfill(&raiz, 10)) {
+        printf("Falha ao criar nos de teste.\n");
+        free(arvore);
+        free(testeS);
         return 1;
     }
 
-    int valores[] = {20, 10, 30, 5, 15, 25, 35};
-    int n = (int)(sizeof(valores) / sizeof(valores[0]));
+    /* Testa busca/impressao */
+    printspecificno(testeS, 20);
+    printf("\n");
+    printspecificno(testeS, 12);
 
-    for (int i = 0; i < n; i++) {
-        if (!BT_insert(arvore, valores[i])) {
-            printf("Falha ao inserir %d\n", valores[i]);
-            return 1;
-        }
+    /* Testa assinaturas dos giros */
+    {
+        bool h = true;
+        case1_giroesquerda(&raiz, &h);
+        case2_girodireita(&raiz, 0);
     }
 
-    int p = 10;
-    int q = 30;
-    int resultado = ancestral(p, q, arvore);
+    printf("Percurso diferente (testeS):\n");
+    arvorepornivel(testeS);
+    printf("\n");
 
-    printf("MCA(%d, %d) = %d\n", p, q, resultado);
+    printf("Percurso em largura/nivel (testeS):\n");
+    arvorepornivel(testeS);
+    printf("\n");
+
+    printf("Altura da arvore (alturano): %d\n", alturano(raiz_altura));
+
+    printf("Teste LCA (1, 6):\n");
+    printlca(testeS, 1, 6);
+    printf("Teste LCA (9, 16):\n");
+    printlca(testeS, 9, 16);
+
+    printf("Teste soma (1, 6):\n");
+    printf("Soma: %i \n", somadeintervaloarvoe(testeS, 1, 6));
+    printf("Teste soma (9, 16):\n");
+    printf("Soma: %i \n", somadeintervaloarvoe(testeS, 9, 16));
+
+    printf("Teste kesimo menor\n");
+    printf("%i-menor: %i \n", 1, treekesimo(testeS,1));
+    printf("Teste kesimo menor\n");
+    printf("%i-menor: %i \n", 2, treekesimo(testeS,2));
+    printf("Teste kesimo menor\n");
+    printf("%i-menor: %i \n", 3, treekesimo(testeS,3));
+    printf("Teste kesimo menor\n");
+    printf("%i-menor: %i \n", 4, treekesimo(testeS,4));
+    printf("Teste kesimo menor\n");
+    printf("%i-menor: %i \n", 5, treekesimo(testeS,5));
+    printf("Teste kesimo menor\n");
+    printf("%i-menor: %i \n", 6, treekesimo(testeS,6));
+
+    free(raiz);
+    free(raiz_altura);
+    free(arvore);
+    free(testeS);
     return 0;
 }

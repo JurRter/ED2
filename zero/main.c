@@ -79,9 +79,9 @@ int main(void) {
     printlca(testeS, 9, 16);
 
     printf("Teste soma (1, 6):\n");
-    printf("Soma: %i \n", somadeintervaloarvore(testeS, 1, 6));
+    printf("Soma: %i \n", somadeintervaloarvoe(testeS, 1, 6));
     printf("Teste soma (9, 16):\n");
-    printf("Soma: %i \n", somadeintervaloarvore(testeS, 9, 16));
+    printf("Soma: %i \n", somadeintervaloarvoe(testeS, 9, 16));
 
     free(raiz);
     free(raiz_altura);

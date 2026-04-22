@@ -215,7 +215,7 @@ int somadeintervalo(tno* x, int p, int q) { // p = 3 q = 10
     + somadeintervalo(x->rit, p, q);
 }
 
-int somadeintervaloarvore(tree* x, int p, int q) {
+int somadeintervaloarvoe(tree* x, int p, int q) {
     return somadeintervalo(x->root, p, q);
 }
 
