@@ -217,16 +217,25 @@ int somadeintervaloarvoe(tree* x, int p, int q) {
     return somadeintervalo(x->root, p, q);
 }
 
-int Kesimomenor(tno* x, int y)
-{
-    if (x == NULL){
-        return 0;
-    }
-    tno* minesq = Kesimomenor(x->lef, y);
-    tno* mindir = Kesimomenor(x->rit, y);
-    if (minesq < mindir)
+bool nbusca(tno* x, int min, int max) {
+    if (x == NULL) return 1;
+    if (x->index<min || x->index>max) return  false;
+    return nbusca(x->lef, min, x->index) && nbusca(x->rit, x->index, max);
 }
 
-int treekesimo(tree* x, int y){
-    Kesimomenor(x->root, y);
+bool arvorenbusca(tree* x) {
+    return nbusca(x->root, INT_MIN, INT_MAX);
+}
+
+bool ptreigual(tno* x, tno* y) {
+    if (x == NULL && y == NULL) return 1;
+    if (x == NULL) return 0;
+    if (y == NULL) return 0;
+    if (x->index != y->index) return false;
+    return (ptreigual(x->lef, y->lef) && ptreigual(x->rit, y->rit));
+
+}
+
+bool eigual(tree* x, tree* y) {
+    return ptreigual(x->root, y->root);
 }

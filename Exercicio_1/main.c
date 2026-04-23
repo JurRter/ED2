@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Bintree.h"
+#include <stdbool.h>
 
 int main(void) {
     Arvore* arvore = tree_create();
@@ -10,6 +11,18 @@ int main(void) {
     int atual_altura = 0;
     Arvore* testeS = createnfillstringtotree(input, &atual_arvore);
     TNO* raiz_altura = stringtotree(input, &atual_altura);
+
+    char input2[] = "(7(5(3(1)(4))(6))(10(8()(3))(12(11)(10()(16)))))";
+    int atual_arvore2 = 0;
+    int atual_altura2 = 0;
+    Arvore* testeY = createnfillstringtotree(input2, &atual_arvore2);
+    TNO* raiz_altura2 = stringtotree(input2, &atual_altura2);
+
+    char input3[] = "(7(5(3(1)(4))(6))(10(8()(9))(12(11)(14()(16)))))";
+    int atual_arvore3 = 0;
+    int atual_altura3 = 0;
+    Arvore* testeZ = createnfillstringtotree(input3, &atual_arvore3);
+    TNO* raiz_altura3 = stringtotree(input3, &atual_altura3);
 
     printf("Entrada usada (maior): %s\n\n", input);
     printf("Desenho da arvore:\n");
@@ -26,7 +39,6 @@ int main(void) {
     printf("Percurso em ordem (arvore vazia):\n");
     printtreeinorder(arvore);
     printf("\n");
-
     /* Mantem os testes que ja existiam */
     printf("Percurso em ordem (testeS):\n");
     printtreeinorder(testeS);
@@ -83,21 +95,40 @@ int main(void) {
     printf("Teste soma (9, 16):\n");
     printf("Soma: %i \n", somadeintervaloarvoe(testeS, 9, 16));
 
-    printf("Teste kesimo menor\n");
-    printf("%i-menor: %i \n", 1, treekesimo(testeS,1));
-    printf("Teste kesimo menor\n");
-    printf("%i-menor: %i \n", 2, treekesimo(testeS,2));
-    printf("Teste kesimo menor\n");
-    printf("%i-menor: %i \n", 3, treekesimo(testeS,3));
-    printf("Teste kesimo menor\n");
-    printf("%i-menor: %i \n", 4, treekesimo(testeS,4));
-    printf("Teste kesimo menor\n");
-    printf("%i-menor: %i \n", 5, treekesimo(testeS,5));
-    printf("Teste kesimo menor\n");
-    printf("%i-menor: %i \n", 6, treekesimo(testeS,6));
+    if (arvorenbusca(testeS)) {
+        puts("e boost");
+    } else {
+        puts("n e busca");
+    }
+
+    if (arvorenbusca(testeY)) {
+        puts("e boost");
+    } else {
+        puts("n e busca");
+    }
+
+    if (eigual(testeS, testeZ)){
+        puts("e igual");
+    } else {
+        puts("n e igual");
+    }
+    if (eigual(testeS, testeY)){
+        puts("e igual");
+    } else {
+        puts("n e igual");
+    }
+    if (eigual(testeS, testeS)){
+        puts("e igual");
+    } else {
+        puts("n e igual");
+    }
 
     free(raiz);
     free(raiz_altura);
+    free(raiz_altura2);
+    free(raiz_altura3);
+    free(testeY);
+    free(testeZ);
     free(arvore);
     free(testeS);
     return 0;

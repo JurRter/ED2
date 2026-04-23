@@ -29,7 +29,7 @@ add_executable(aula_2803
 )
 
 # Exercicio 1
-add_executable(exercicio_1
+add_executable(Exercicio_1
         "Exercicio_1/main.c"
         "Exercicio_1/BinTree.c"
 )

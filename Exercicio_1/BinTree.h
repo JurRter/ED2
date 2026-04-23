@@ -1,5 +1,5 @@
-#ifndef ED2_BINTREE_H
-#define ED2_BINTREE_H
+#ifndef ED2_EBINTREE_H
+#define ED2_EBINTREE_H
 
 #include <stdbool.h>
 
@@ -190,7 +190,29 @@ void printlca(Arvore* x, int p, int q);
  */
 int somadeintervaloarvoe(Arvore* x, int p, int q);
 
+/**
+ * Validates if the given binary tree satisfies the Binary Search Tree (BST) property.
+ *
+ * @param x A pointer to an Arvore structure. The function checks if the binary tree
+ *          rooted at x->root satisfies the BST property, where for any node N,
+ *          all values in the left subtree of N are less than N->index, and all values
+ *          in the right subtree of N are greater than N->index.
+ * @return A boolean value indicating if the tree satisfies the BST property.
+ *         Returns true if the tree is a valid BST, and false otherwise.
+ */
+bool arvorenbusca(Arvore* x);
 
-int treekesimo(Arvore* x, int y);
+/**
+ * Checks whether two binary trees are identical.
+ *
+ * This function compares the structure and values of two binary trees
+ * by evaluating their root nodes and recursively their subtrees.
+ *
+ * @param x A pointer to the first tree. It should be a valid tree structure with a root node.
+ * @param y A pointer to the second tree. It should be a valid tree structure with a root node.
+ * @return A boolean value indicating whether the two trees are identical.
+ *         Returns true if the trees have the same structure and node values, and false otherwise.
+ */
+bool eigual(Arvore* x, Arvore* y);
 
 #endif

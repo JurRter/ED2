@@ -1,5 +1,5 @@
-#ifndef ED2_BINTREE_H
-#define ED2_BINTREE_H
+#ifndef ED2_ZBINTREE_H
+#define ED2_ZBINTREE_H
 
 #include <stdbool.h>
 
