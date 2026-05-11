@@ -45,3 +45,9 @@ add_executable(AVLestudos
         "AVLestudos/main.c"
         "AVLestudos/AVLtree.c"
 )
+
+#RUBRONEGRO
+add_executable(Rubro
+        "Arvorerubronegro/main.c"
+        "Arvorerubronegro/Rubrotree.c"
+)
