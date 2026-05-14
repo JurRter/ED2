@@ -27,6 +27,16 @@ rtree* RB_create(){
     return t;
 }
 
+bool RB_nocreantenfill(rtree* t, rno** x, int y){
+    *x = malloc(sizeof(rno));
+    if(*x == NULL) return 0;
+    (*x)->lef = t->nil;
+    (*x)->rit = t->nil;
+    (*x)->p = t->nil;
+    (*x)->key = y;
+    (*x)->color = 'R';
+    return 1;
+}
 
 void LEFT_ROT(rtree* t, rno* x){
     rno* y = x->rit;

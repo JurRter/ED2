@@ -1,3 +1,2 @@
-//
-// Created by Brendo Henrique on 07/05/2026.
-//
+#define n 1000000
+
