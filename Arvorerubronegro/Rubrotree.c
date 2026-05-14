@@ -28,12 +28,36 @@ rtree* RB_create(){
 }
 
 
-void LEFT_ROT(rtree* t, rno* z){
-
+void LEFT_ROT(rtree* t, rno* x){
+    rno* y = x->rit;
+    x->rit = y->lef;
+    if (y->lef != t->nil)
+        y->lef->p = x;
+    y->p = x->p;
+    if (x->p == t->nil)
+        t->root = y;
+    else if (x == x->p->lef)
+        x->p->lef = y;
+    else
+        x->p->rit = y;
+    y->lef = x;
+    x->p = y;
 }
 
-void RIGHT_ROT(rtree* t, rno* z){
-
+void RIGHT_ROT(rtree* t, rno* x){ // mesma coisa so que pro outro lado
+    rno* y = x->lef;
+    x->lef = y->rit;
+    if (y->rit != t->nil)
+        y->rit->p = x;
+    y->p = x->p;
+    if (x->p == t->nil)
+        t->root = y;
+    else if (x == x->p->rit)
+        x->p->rit = y;
+    else
+        x->p->lef = y;
+    y->rit = x;
+    x->p = y;
 }
 
 void RB_insertFIX(rtree* t, rno* z){
@@ -45,14 +69,34 @@ void RB_insertFIX(rtree* t, rno* z){
                 y->color = 'B';
                 z->p->p->color = 'R';
                 z = z->p->p; // case 1 }
-            } else{
+            } 
+            else{
                 if (z == z->p->rit){ // case 2 {
                     z = z->p;
                     LEFT_ROT(t,z);
-                }    // case 2 }
+                }    // case 2 } 
+                z->p->color = 'B'; //case 3 {
+                z->p->p->color = 'R';
+                RIGHT_ROT(t,z->p->p); //case 3 }
             }
-        } else{
-
+        } // linha 41-56 mas com LEFT_ROT e RIGHT_ROT trocados.
+        else{
+            rno* y = z->p->p->rit;
+            if (y->color == 'R'){
+                z->p->color = 'B'; // case 1 {
+                y->color = 'B';
+                z->p->p->color = 'R';
+                z = z->p->p; // case 1 }
+            }
+            else{
+                if (z == z->p->rit){ // case 2 {
+                    z = z->p;
+                    RIGHT_ROT(t,z);
+                }    // case 2 }
+                z->p->color = 'B'; //case 3 {
+                z->p->p->color = 'R';
+                LEFT_ROT(t,z->p->p); //case 3 }
+            }
         }
     }
 }
